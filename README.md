@@ -1,11 +1,15 @@
 # 🤖🔒 tedee (cloud)
+
+> [!NOTE]
+> This is a fork of [patrickhilker/tedee_hass_integration](https://github.com/patrickhilker/tedee_hass_integration), originally based on work by [@joerg65](https://github.com/joerg65) and [@zweckj](https://github.com/zweckj). It has been updated to use the latest Tedee API (`aiotedee`) to avoid deprecation of the old API.
+
 > [!NOTE]
 > Starting with release 2024.2.0 a tedee integration will be shipped as part of HomeAssistant. However, the included component is local API only, if you need the cloud API, you can still use this custom component.
 
 Integrate your [tedee smart lock](https://tedee.com/product-info/lock/) into [Home Assistant](https://www.home-assistant.io/).
 
 [![hacs_badge](https://img.shields.io/badge/HACS-Default-41BDF5.svg?style=for-the-badge)](https://github.com/hacs/integration)  
-[![issues_badge](https://img.shields.io/github/issues-raw/patrickhilker/tedee_hass_integration?style=for-the-badge)](https://github.com/foudendorp/tedee_hass_integration/issues)  
+[![issues_badge](https://img.shields.io/github/issues-raw/foudendorp/tedee_hass_integration?style=for-the-badge)](https://github.com/foudendorp/tedee_hass_integration/issues)  
 [![Open your Home Assistant instance and open a repository inside the Home Assistant Community Store.](https://my.home-assistant.io/badges/hacs_repository.svg)](https://my.home-assistant.io/redirect/hacs_repository/?owner=foudendorp&repository=tedee_hass_integration&category=integration)
 
 
@@ -53,7 +57,7 @@ You can change the following settings after setting up the integration, by going
 
 ## Roadmap
 
-This project is open for your pull requests - just implement any feature you might need! 🚀
+This project is a maintained fork — pull requests and issues are welcome! 🚀
 
 ## Known issues
 

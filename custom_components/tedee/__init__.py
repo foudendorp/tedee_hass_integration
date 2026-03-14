@@ -4,7 +4,7 @@ from homeassistant.config_entries import ConfigEntry
 from homeassistant.const import CONF_ACCESS_TOKEN
 from homeassistant.core import HomeAssistant
 from homeassistant.helpers.device_registry import DeviceEntry
-from pytedee_async import TedeeClient
+from aiotedee import TedeeClient
 
 from .const import DOMAIN
 from .coordinator import TedeeApiCoordinator

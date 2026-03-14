@@ -7,7 +7,7 @@ from homeassistant.core import callback
 from homeassistant.exceptions import HomeAssistantError
 from homeassistant.helpers.entity import DeviceInfo
 from homeassistant.helpers.update_coordinator import CoordinatorEntity
-from pytedee_async import TedeeClientException
+from aiotedee import TedeeClientException
 
 from .const import DOMAIN, UNLOCK_PULLS_LATCH
 
@@ -36,21 +36,21 @@ class TedeeLock(CoordinatorEntity, LockEntity):
     """A tedee lock that doesn't have pullspring enabled"""
 
     def __init__(self, lock, coordinator, entry):
-        _LOGGER.debug("Setting up LockEntity for %s", lock.name)
+        _LOGGER.debug("Setting up LockEntity for %s", lock.lock_name)
         super().__init__(coordinator)
         
         self._lock = lock
-        self._id = self._lock.id
+        self._id = self._lock.lock_id
 
         self._attr_has_entity_name = True
         self._attr_name = "Lock"
-        self._attr_unique_id = f"{lock.id}-lock"
+        self._attr_unique_id = f"{lock.lock_id}-lock"
         
         self._attr_device_info = DeviceInfo(
-            identifiers={(DOMAIN, self._lock.id)},
-            name=self._lock.name,
+            identifiers={(DOMAIN, self._lock.lock_id)},
+            name=self._lock.lock_name,
             manufacturer="tedee",
-            model=self._lock.type
+            model=self._lock.lock_type
         )
 
     @property
@@ -79,7 +79,7 @@ class TedeeLock(CoordinatorEntity, LockEntity):
             ATTR_CONNECTED: self._lock.is_connected,
             ATTR_SUPPORT_PULLSPING: self._lock.is_enabled_pullspring,
             ATTR_DURATION_PULLSPRING: self._lock.duration_pullspring,
-            ATTR_SEMI_LOCKED: self._lock.state == 3
+            ATTR_SEMI_LOCKED: self._lock.state == 3  # TedeeLockState.HALF_OPEN
         }
 
     @property
@@ -89,7 +89,7 @@ class TedeeLock(CoordinatorEntity, LockEntity):
     @callback
     def _handle_coordinator_update(self) -> None:
         """Handle updated data from the coordinator."""
-        self._lock = self.coordinator.data[self._lock.id]
+        self._lock = self.coordinator.data[self._lock.lock_id]
         self.async_write_ha_state()
 
         

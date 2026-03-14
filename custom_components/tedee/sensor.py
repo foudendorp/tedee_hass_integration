@@ -21,7 +21,7 @@ async def async_setup_entry(hass, entry, async_add_entities):
 class TedeeBatterySensor(CoordinatorEntity, SensorEntity):
 
     def __init__(self, lock, coordinator):
-        _LOGGER.debug("Setting up SensorEntity for %s", lock.name)
+        _LOGGER.debug("Setting up SensorEntity for %s", lock.lock_name)
         super().__init__(coordinator)
         self._lock = lock
         self._attr_device_class = SensorDeviceClass.BATTERY
@@ -29,18 +29,18 @@ class TedeeBatterySensor(CoordinatorEntity, SensorEntity):
         self._attr_state_class = SensorStateClass.MEASUREMENT
         self._attr_has_entity_name = True
         self._attr_name = "Battery"
-        self._attr_unique_id = f"{lock.id}-battery-sensor"
+        self._attr_unique_id = f"{lock.lock_id}-battery-sensor"
         self._attr_device_info = DeviceInfo(
-            identifiers={(DOMAIN, self._lock.id)},
-            name=self._lock.name,
+            identifiers={(DOMAIN, self._lock.lock_id)},
+            name=self._lock.lock_name,
             manufacturer="tedee",
-            model=self._lock.type
+            model=self._lock.lock_type
         )
 
     @callback
     def _handle_coordinator_update(self) -> None:
         """Handle updated data from the coordinator."""
-        self._lock = self.coordinator.data[self._lock.id]
+        self._lock = self.coordinator.data[self._lock.lock_id]
         self.async_write_ha_state()
 
     @property
